@@ -1,0 +1,37 @@
+{
+  "id": "2664621",
+  "name": "在线记账系统",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1903805",
+      "name": "web__暂无记录",
+      "font_class": "web__zanwujilu",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "1615642",
+      "name": "账单",
+      "font_class": "zhangdan",
+      "unicode": "e72e",
+      "unicode_decimal": 59182
+    },
+    {
+      "icon_id": "5838475",
+      "name": "统计",
+      "font_class": "tongji",
+      "unicode": "e856",
+      "unicode_decimal": 59478
+    },
+    {
+      "icon_id": "16942079",
+      "name": "添加",
+      "font_class": "tianjia",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    }
+  ]
+}

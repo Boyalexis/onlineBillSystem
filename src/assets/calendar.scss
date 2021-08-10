@@ -1,0 +1,66 @@
+.wh_container {
+  min-width: 100% !important;
+  margin: 0px !important;
+}
+
+.wh_content_all {
+  padding: 10px;
+  // height: 330px;
+  background-color: #fff !important;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  // box-shadow: 1px 1px 1px #ccc;
+}
+
+// 今日颜色
+.wh_content_item .wh_isToday[data-v-2ebcbc83] {
+  background-color: #0075ff;
+  // background: transparent;
+  // box-sizing: border-box;
+  // border-bottom: 1px turquoise;
+}
+
+// 点击日期颜色
+.wh_content_item .wh_chose_day[data-v-2ebcbc83] {
+  background-color: rgba(19, 105, 167, 1);
+}
+
+// 本月日期字体颜色
+.wh_item_date {
+  color: #211d48;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+// 非本月日期字体颜色
+.wh_content_item .wh_other_dayhide[data-v-2ebcbc83],
+.wh_content_item .wh_want_dayhide[data-v-2ebcbc83] {
+  color: #ccc;
+}
+
+// 一、二、三、四、五
+.wh_top_tag {
+  color: black;
+}
+
+// 年份颜色
+.wh_top_changge .wh_content_li[data-v-2ebcbc83] {
+  color: #162947;
+  font-weight: bold;
+}
+
+//左箭头
+.wh_jiantou1[data-v-2ebcbc83] {
+  border-top: 2px solid #162947;
+  border-left: 2px solid #162947;
+  width: 8px;
+  height: 8px;
+}
+
+// 右箭头
+.wh_jiantou2[data-v-2ebcbc83] {
+  border-top: 2px solid #162947;
+  border-right: 2px solid #162947;
+  width: 8px;
+  height: 8px;
+}
