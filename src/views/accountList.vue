@@ -132,7 +132,7 @@ export default {
           this.isLoading = false
           this.$nextTick(() => {
           this.scroll = new BScroll(this.$refs.wrapper, {})
-          console.log(this.scroll);
+          // console.log(this.scroll);
           this.accountListHeight = (document.documentElement.clientHeight - 330)
         })
         // }, 2000)
@@ -142,7 +142,7 @@ export default {
         this.isLoading = false
       }
     })
-    console.log(this.accountListHeight);
+    // console.log(this.accountListHeight);
   },
   computed: {
     dayPay: function() {

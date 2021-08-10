@@ -112,7 +112,7 @@ export default {
     // const myChart = echarts.init(document.getElementById("pie_chart_box"));
     // myChart.setOption(this.payOption);
     const month = (new Date).getMonth() + 1
-    console.log(month);
+    // console.log(month);
     getMonthPay(month).then(res => {    // getMonthPay返回的是Promise
       // console.log(res);
       // this.bill = res.bill

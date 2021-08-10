@@ -161,8 +161,8 @@ export default {
         desc: this.form.desc
       }
       this.loading = true
-      axios.post('https://qc76o2.fn.thelarkcloud.com/addAccount', form).then(res => {
-        console.log(res);
+      axios.post('https://qc76o2.fn.thelarkcloud.com/addAccount', form).then(() => {
+        // console.log(res);
         this.loading = false
         this.$router.push('/accountList')
         this.$message({

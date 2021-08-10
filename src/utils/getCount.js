@@ -166,16 +166,16 @@ export async function getYearBill() {
   var payBill = []
   var incomeBill = []
   await axios.get('https://qc76o2.fn.thelarkcloud.com/getYearBill').then(res => {
-    console.log(res.data);
+    // console.log(res.data);
     const arr = Object.values(res.data)
-    console.log(arr);
+    // console.log(arr);
     arr.forEach(item => {
       // console.log('item', item);
       payBill.push(item.pay)
       incomeBill.push(item.income)
     })
   })
-  console.log(payBill, incomeBill);
+  // console.log(payBill, incomeBill);
   return {
     payBill,
     incomeBill
