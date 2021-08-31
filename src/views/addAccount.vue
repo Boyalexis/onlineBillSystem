@@ -67,7 +67,8 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit" class="submitButton" :loading="loading">确认</el-button>
+        <el-button v-if="edit" type="primary" @click="onEdit" class="submitButton" :loading="loading">编辑</el-button>
+        <el-button v-else type="primary" @click="onSubmit" class="submitButton" :loading="loading">确认</el-button>
       </el-form-item>
     </el-form>
     <!-- </el-card> -->
@@ -136,7 +137,8 @@ export default {
             validator: validateNumber,
             trigger: 'blur' }
         ]
-      }
+      },
+      edit: false
     };
   },
   components: {},
@@ -160,6 +162,7 @@ export default {
         date: this.form.date,
         desc: this.form.desc
       }
+      // console.log(form)
       this.loading = true
       axios.post('https://qc76o2.fn.thelarkcloud.com/addAccount', form).then(() => {
         // console.log(res);
@@ -171,8 +174,58 @@ export default {
           center: true
         });
       })
+    },
+    onEdit() {
+      const form = {
+        id: this.$route.params.billId,
+        type: this.form.type,
+        money: Number(this.form.money),
+        use: this.form.use,
+        date: this.form.date,
+        desc: this.form.desc
+      }
+      // console.log(form)
+      this.loading = true
+      axios.post('https://qc76o2.fn.thelarkcloud.com/editAccount', form).then(() => {
+        // console.log(res);
+        this.loading = false
+        this.$router.push('/accountList')
+        this.$message({
+          message: '编辑成功',
+          type: 'success',
+          center: true
+        });
+      })
     }
   },
+  mounted() {
+    const year = new Date().getFullYear()
+    const month = String(new Date().getMonth()+1).padStart(2,0)
+    const day = String(new Date().getDate()).padStart(2,0)
+    this.form.date = year + '-' + month + '-' + day  // 添加账单页日期默认当天
+    // console.log(this.$route.params.billId)
+    if(this.$route.params.billId) {
+      this.edit = true
+      const params = {
+        id: this.$route.params.billId
+      }
+      axios.post('https://qc76o2.fn.thelarkcloud.com/getAccountItemById',params).then(res => {
+        const AccountItem = res.data
+        this.form.type = AccountItem.type
+        this.form.money = AccountItem.money
+        this.form.use = AccountItem.use
+        this.form.date = AccountItem.date
+        this.form.desc = AccountItem.desc
+        if(AccountItem.type === '支出') {
+          this.income = false
+          this.pay = true
+        }else {
+          this.income = true
+          this.pay = false
+        }
+      })
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

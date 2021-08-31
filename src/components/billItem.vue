@@ -1,5 +1,5 @@
 <template>
-  <div class="bill-item">
+  <div class="bill-item" @click="clickBill">
     <div class="type-desc">
       <div class="type">{{use}}</div>
       <div class="desc">{{desc}}</div>
@@ -28,7 +28,11 @@ export default {
     }
   },
   components: {},
-  methods: {},
+  methods: {
+    clickBill() {
+      this.$emit('clickBill')
+    }
+  },
   // watch: {
   //   pay(newValue) {
   //     if(newValue == 'pay'){

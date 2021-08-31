@@ -47,6 +47,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .short-count {
+  background: #f4f3fc;
   display: flex;
   flex-direction: column;
   font-size: 12px;

@@ -3,6 +3,9 @@
     <div class="tab-wrapper">
       <Tab/>
     </div>
+    <div class="description">
+      <p>tips：左右滑动切换tab，手指缩放控制图表显示范围</p>
+    </div>
     <div class="tab_page-wrapper">
       <tabPage />
     </div>
@@ -35,6 +38,13 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100%;
+  .description {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #fda623;
+  }
   .tab-wrapper {
     
   }

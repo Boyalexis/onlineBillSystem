@@ -8,15 +8,15 @@
     </div>
 
     <!-- if hasData Begin-->
-    
+      <div class="short-item">
+        <ShortCount
+          :dayPay="dayPay"
+          :dayIncome="dayIncome"
+          
+        />
+      </div>
       <div class="account_list"  v-if="hasData" >
-        <div class="short-item">
-          <ShortCount
-            :dayPay="dayPay"
-            :dayIncome="dayIncome"
-            
-          />
-        </div>
+        
         <!-- <el-skeleton v-if="isLoading" animated/> -->
         <!-- <div class="list" v-else>
           <el-divider content-position="left">{{time}}</el-divider>
@@ -35,6 +35,7 @@
               :money="item.money"
               :date="item.date"
               :use="item.use"
+              @clickBill="handleClick(item._id)"
             />
           </div>
         </div>
@@ -44,7 +45,22 @@
       </div>
     
     <!-- if hasData End -->
-
+  <el-drawer
+    title='这瓜保熟吗？'
+    :visible.sync="drawer"
+    direction="btt"
+    custom-class="demo-drawer"
+    ref="drawer"
+    :show-close="showClose"
+  >
+    <div class="demo-drawer__content">
+    <div class="demo-drawer__footer">
+        <el-button class="button-group" icon="el-icon-edit" type="success" @click="handleEdit">编辑</el-button>
+        <el-button class="button-group" icon="el-icon-delete" type="danger" @click="handleDelete">删除</el-button>
+        <el-button class="button-group" type="primary" @click="handleCancel">取消</el-button>
+      </div>
+    </div>
+  </el-drawer>
     
   </div>
 </template>
@@ -59,6 +75,7 @@ import ShortCount from '../components/ShortCount.vue'
 import billItem from '../components/billItem.vue';
 import BScroll from '@better-scroll/core';
 import axios from 'axios';
+import { MessageBox } from 'element-ui';
 export default {
   name: 'accountList',
   data() {
@@ -67,10 +84,13 @@ export default {
       isLoading: true,
       billList: [],
       accountListHeight: 300,
-      width: 100
+      width: 100,
       // monthPay: 0,
       // monthIncome: 0
-      // dayCount: ''
+      // dayCount: '',
+      drawer: false,
+      showClose: false,
+      activeBillId:''
     }
   },
   
@@ -86,7 +106,7 @@ export default {
       this.hasData = true
       // date = date.replace(/\//g, '-') //格式化日期，将'/'替换为'-'
       date = moment(date,'YYYY-MM-DD').format('YYYY-MM-DD')
-      console.log(date)
+      // console.log(date)
       const params = {
         date: date
       }
@@ -100,7 +120,7 @@ export default {
             this.billList = list
             this.isLoading = false
             this.hasData = true
-          }, 2000)
+          }, 500)
         }else {
           this.hasData = false
           this.isLoading = false
@@ -110,6 +130,46 @@ export default {
     changeMonth(data) {
       console.log(data.split('/')[1]); //左右点击切换月份
     },
+    handleClick(billId) {
+      // console.log(billId)
+      this.activeBillId = billId
+      this.drawer = true
+    },
+    handleEdit() {
+      // console.log(this.activeBillId,'账单需要编辑')
+      this.$router.push(`/addAccount/`+this.activeBillId)
+    },
+    handleDelete() {
+      // console.log(this.activeBillId,'账单需要删除')
+      MessageBox.confirm('确定删除该账单吗', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          const params = {
+            id: this.activeBillId
+          }
+          axios.post('https://qc76o2.fn.thelarkcloud.com/deleteAccountItemById',params).then((res) => {
+            console.log(res)
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+            this.drawer = false
+            window.location.reload()
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+          this.drawer = false          
+        });
+    },
+    handleCancel() {
+      this.activeBillId = ''
+      this.drawer = false
+    }
   },
   mounted() { //获取今日账单
     const now = new Date()
@@ -181,7 +241,7 @@ export default {
   flex-direction: column;
   
     .account_list {
-      padding: 10px 20px 20px 20px;
+      padding: 0px 20px 20px 20px;
       background: #f4f3fc;
       flex: 1;
       .loading-container {
@@ -200,6 +260,10 @@ export default {
     background: #f4f3fc;
   }
 }
-
+.button-group {
+  display: block;
+  width: 80%;
+  margin: 2px auto!important;
+}
 
 </style>
